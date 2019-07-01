@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SouthWest Airlines</title>
+		<link rel="stylesheet" type="text/css" href="Stylesheets/stylesheet.css">
+		<link rel="icon" href="Images/favicon.png" type="image/gif">
+		<script type="text/javascript" src="Scripts/jquery.min.js"></script>
+		<script type="text/javascript" src="Scripts/script.js"></script>
+		<script>
+			$(document).ready(function(){
+				st = getServerTime();
+				updateServerTime();
+				fetchJSONData();
+				fetchData('All');
+				$(window).scroll(scrollFurther);
+				window.addEventListener('dblclick', function(e) {
+					clickedNode = e.target;
+					checkNode(clickedNode);
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class = "navbar">
+			<div class="header-image">
+				<img src = "Images/logo.png" class="header-logo"/><img src = "Images/logo2.png" class="header-logo"/>
+				<div class = "time_details">
+					<div class = "timeBlock">
+						<div id = "topDiv"></div>
+						<div id = "bottomDiv"></div>
+					</div>
+					<div class = "timeBlock" style="text-align:right; border-right: 2px solid white;">
+						<div id = "topDivUpdate"></div>
+						<div id = "bottomDivUpdate"></div>
+					</div>
+				</div>
+				<div id = "options">
+					<div class = "options_block" onclick = "changeState('Scheduled');fetchData('Scheduled');">
+						<img id ="scheduled_image" src = "Images/bright.png"/>
+						<p id = "scheduled_sub"><b>SCHEDULED</b></p>
+					</div>
+					<div id = "partition" class = "options_partition" onclick = "changeState('All');fetchData('All');"></div>
+					<div class = "options_block" onclick = "changeState('InAir');fetchData('InAir');">
+						<img id ="departed_image" src = "Images/bright.png"/>
+						<p id = "departed_sub"><b>DEPARTED</b></p>
+					</div>
+				</div>
+			</div>
+			<table id="table_header" cellpadding="0" cellspacing="0" border="0">
+				<thead>
+					<tr>
+						<th rowspan = "2">DATE</th>
+						<th rowspan = "2">FROM</th>
+						<th rowspan = "2">TO</th>
+						<th rowspan = "2">FLIGHT<br>Number</th>
+						<th rowspan = "2">TAIL<br>NUMBER</th>
+						<th rowspan = "2">FLIGHT<br>TIME</th>
+						<th colspan="2">SCHEDULED</th>
+						<th colspan="2">PREDICTED</th>
+						<th rowspan = "2">STATUS</th>
+					</tr>
+					<tr>
+						<th>DEPARTURE</th>
+						<th>ARRIVAL</th>
+						<th>DEPARTURE</th>
+						<th>ARRIVAL</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div class="main">
+			<table id="table_content" cellpadding="0" cellspacing="0" border="0">
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		<div id="simpleModal" class="modal">
+			<div class="modal-content">
+				<div class="weather-content">
+					<table id="weather-table">
+						<thead>
+							<tr>
+								<td colspan="2" id="icon">icon</td>
+								<td colspan="4">
+									<span id="og_apt">apt</span>
+									<p id="phrase">phrase</p>
+								</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td id="humidity"><img src="Images/Widget_icons/humidity.svg"></td>
+								<td colspan="2">
+									<p id="h_val"></p> 
+									<p id="name">Humidity</p>
+								</td>
+								<td id="temperature"><img src="Images/Widget_icons/temperature.svg"></td>
+								<td colspan="2">
+									<p id="t_val"></p> 
+									<p id="name">Temperature</p>
+								</td>	
+							</tr>
+							<tr>
+								<td id="vision"><img src="Images/Widget_icons/vision.svg"></td>
+								<td colspan="2">
+									<p id="v_val"></p> 
+									<p id="name">Visibility</p>
+								</td>
+								<td id="dew"><img src="Images/Widget_icons/dew.svg"></td>
+								<td colspan="2">
+									<p id="d_val"></p> 
+									<p id="name">Dew Point</p>
+								</td>						
+							</tr>
+							<tr>
+								<td id="wind"><img src="Images/Widget_icons/wind.svg"></td>
+								<td colspan="2">
+									<p id="w_val"></p> 
+									<p id="name">Wind speed</p>
+								</td>
+								<td id="pressure"><img src="Images/Widget_icons/pressure.svg"></td>
+								<td colspan="2">
+									<p id="p_val"></p> 
+									<p id="name">Pressure</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="flight-content">
+					<div style="display:inline-block;width:50%;">
+						<table class="flight-table" style="background:none;border-right: 1px solid white;">
+							<thead>
+								<tr>
+									<td style="width:100%" colspan="4">
+										Flight Information
+									</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Origin: </td>
+									<td id="from" colspan="3">PHL</td>
+								</tr>
+								<tr>
+									<td>Destination: </td>
+									<td id="to" colspan="3">ABC</td>
+								</tr>
+								<tr>
+									<td>Flight<br>Number: </td>
+									<td id="flight-no" colspan="3">WN1234</td>
+								</tr>
+								<tr>
+									<td>Tail<br>Number: </td>
+									<td id="tail-no" colspan="3">5678</td>
+								</tr>
+								<tr>
+									<td>Distance: </td>
+									<td id="dist" colspan="3">200 miles</td>
+								</tr>
+								<tr>
+									<td>Scheduled<br>Time: </td>
+									<td id="sch-time" colspan="3">2 hrs & 0 mins</td>
+								</tr>
+								<tr>
+									<td>Scheduled<br>Date: </td>
+									<td id="sch-date" colspan = "3">01 January 2015</td>
+								</tr>
+								<tr>
+									<td>Scheduled<br>Departure: </td>
+									<td id="sch-dep" colspan = "3">00:00 UTC</td>
+								</tr>
+								<tr>
+									<td>Scheduled<br>Arrival: </td>
+									<td id="sch-arr" colspan = "3">00:00 UTC</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div style="display:inline-block;width:49%;vertical-align:top">
+						<table class="flight-table" style="background:none;border-bottom: 1px solid white;">
+							<thead>
+								<tr>
+									<td style="width:100%" colspan = "4">
+										<span class="closeBtn">&times;</span>
+										<span id="date">Previous Flight Information</span>
+									</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="2">Scheduled Interval: </td>
+									<td id="sch-int" colspan="2">0 mins</td>
+								</tr>
+								<tr>
+									<td colspan="2">Arrival Delay:</td>
+									<td id="prev-arr-delay" colspan="2">0 mins</td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="flight-table" style="background:none;border-bottom: 1px solid white;">
+							<thead>
+								<tr>
+									<td style="width:100%" colspan="4">
+										Departure Delay Information
+									</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="3">Calculated Compulsary Delay: </td>
+									<td id="comp-delay" colspan="1">0 mins</td>
+								</tr>
+								<tr>
+									<td colspan="3">Predicted General Delay: </td>
+									<td id="gen-delay" colspan="1">0 mins</td>
+								</tr>
+								<tr>
+									<td colspan="3">Predicted Weather Delay: </td>
+									<td id="w-delay" colspan="1">0 mins</td>
+								</tr>
+								<tr>
+									<td colspan="3">Total Predicted Departure Delay: </td>
+									<td id="t-d-delay" colspan="1">0 mins</td>
+								</tr>
+								<tr>
+									<td colspan="3">Actual Departure Delay: </td>
+									<td id="act-dep-delay" colspan="1">0 mins</td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="flight-table" style="background:none;">
+							<thead>
+								<tr>
+									<td style="width:100%" colspan="4">
+										Arrival Delay Information
+									</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="2">Predicted Arrival Delay: </td>
+									<td id="t-a-delay" colspan="2">0 mins</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

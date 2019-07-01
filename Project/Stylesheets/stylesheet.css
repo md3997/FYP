@@ -1,0 +1,297 @@
+body {
+	background-color: white;
+	margin: 0px;
+	padding: 0px;
+}
+
+.navbar {
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 46px;
+}
+
+.header-image {
+	background-image: linear-gradient(rgba(153, 0, 204, 1), rgba(0, 0, 0, 0)), url("../Images/header.png");
+	height: 80px;
+	width: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+.header-logo {
+	text-align: left;
+	height: 100%;
+	width: auto;
+	filter: brightness(70%);
+}
+
+.time_details {
+	float: right;
+	height: 100%;
+}
+
+.timeBlock {
+	float: right;
+	color: white;
+	font-size: 16px;
+	height: 50%;
+	margin-top: 20px;
+	margin-left: 5px;
+	padding-right: 5px;
+	font-weight: 650;
+	cursor: default;
+}
+
+#topDiv, #bottomDiv, #topDivUpdate, #bottomDivUpdate {
+	height: 50%;
+}
+
+#options {
+	float: right;
+	margin-right: 5px;
+	height: 100%;
+}
+
+.options_block {
+	height: 100%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.options_partition {
+	display: inline-block;
+	background-color: rgb(255,255,255);
+	height: 60px;
+	width: 8px;
+	vertical-align: top;
+	margin: 10px 10px;
+}
+
+#options:hover {
+	cursor: pointer;
+}
+
+#scheduled_image, #departed_image {
+	height: 70%;
+	margin: auto;
+	display: block;
+}
+
+#scheduled_sub, #departed_sub {
+	color: rgb(255,255,255);
+	font-size: 12px;
+	margin: 0px;
+	padding: 0px;
+	margin-top: 0px;
+}
+
+.main {
+	margin-top: 146px;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+	table-layout: fixed;
+}
+
+thead {
+	background-color: rgba(108,122,137,1);
+}
+
+tr:nth-child(even) {
+	background: #EEE;
+}
+
+tr:nth-child(odd) {
+	background: #FFF;
+}
+
+tr:hover {
+	background-color:rgb(0, 0, 102, 0.25);
+}
+
+th {
+	height: 32px;
+	padding: 0px;
+	text-align: center;
+	font-weight: 700;
+	font-size: 13px;
+	color: #fff;
+	text-transform: uppercase;
+	background-color: #000033;
+	border: 1px solid #CCC;
+	cursor: default;
+}
+
+td {
+	padding: 12px;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: 550;
+	font-size: 12px;
+	color: black;
+	border-right: 1px solid #AAA;
+	cursor: default;
+}
+
+.plane {
+	height: 20px;
+	width: auto;
+}
+
+.level1 {
+	border-left: 10px solid rgb(102, 204, 0);
+}
+.level2 {
+	border-left: 10px solid rgb(204, 204, 0);
+}
+.level3 {
+	border-left: 10px solid rgb(204, 153, 0);
+}
+.level4 {
+	border-left: 10px solid rgb(204, 102, 0);
+}
+.level5 {
+	border-left: 10px solid rgb(153, 38, 0);
+}
+
+* {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+}
+
+/*modal*/
+
+.weather-content{
+	background-color: #c1c1f0;
+	width: 40%;
+}
+
+.flight-content{
+	background-image: linear-gradient(to bottom right, rgba(20, 50, 98, 1), rgba(153, 0, 204, 1));
+	width: 60%;
+}
+
+.modal{
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left:0;
+	top:0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.85);
+}
+
+.flexBox {
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.modal-content{
+	display:flex;
+	margin: 10% auto;
+	width:70%;
+	box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
+	animation-name:modalopen;
+	animation-duration:1s;
+}
+
+.closeBtn{
+	color:#AAA;
+	float:right;
+	font-size: 25px;
+	margin-top: -5px;
+}
+
+.closeBtn:hover, .closeBtn:focus{
+	cursor:pointer;
+	color:#FFF;
+	text-decoration: none;
+}
+
+@keyframes modalopen{
+	from {opacity: 0}
+	to {opacity: 1}
+}
+
+/*weather table*/
+
+#weather-table th, #weather-table td{
+	text-align: left;
+	border: none;
+	padding: 5px;
+}
+
+#weather-table thead tr{
+	background-color: #9c5bd7;
+}
+
+#weather-table tbody tr{
+	padding: 5px;
+	background-color: transparent;
+}
+
+#weather-table thead tr img{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+#weather-table tbody tr img{
+	display: block;
+	width: 40px;
+	height: auto;
+}
+
+#og_apt{
+	font-size: 20px;
+}
+
+#phrase{
+	font-size: 20px;
+	opacity: 0.4;
+}
+
+#name{
+	opacity: 0.4;
+}
+
+/*flight table*/
+
+.flight-table {
+	display:table;
+	width: 100%;
+}
+
+.flight-table thead{
+	background-color:transparent;
+}
+
+.flight-table tr {
+	background-color:transparent;
+}
+
+.flight-table tbody tr td{
+	text-align: left;
+	border:none;
+	padding: 5px;
+	border:none;
+	color: white;
+}
+
+.flight-table thead tr td{
+	font-size: 15px;
+	text-align: center;
+	border:none;
+	color:white;
+}
